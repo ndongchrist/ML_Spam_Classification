@@ -1,8 +1,3 @@
-Here's a professional and beginner-friendly `README.md` template for your **Email Spam Classification** project. You can customize the project name and author details as needed.
-
----
-
-````markdown
 # 📧 Email Spam Classifier
 
 A machine learning project to classify emails as **spam** or **ham (not spam)** using natural language processing (NLP). The model uses techniques like TF-IDF vectorization and compares multiple classification algorithms including Logistic Regression, Naive Bayes, and Support Vector Machines (SVM).
