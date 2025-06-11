@@ -115,4 +115,5 @@ webcolors==24.11.1
 webencodings==0.5.1
 websocket-client==1.8.0
 widgetsnbextension==4.0.14
-flask==2.2.2
+Flask==2.2.5
+Werkzeug==2.0.3
