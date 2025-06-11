@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Email Spam Classifier | Group 04</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <style>
+    :root {
+      --primary: #4361ee;
+      --primary-light: #e0e7ff;
+      --danger: #ef233c;
+      --danger-light: #ffe0e3;
+      --success: #2ecc71;
+      --success-light: #e0f7ec;
+      --dark: #2b2d42;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    
+    .container {
+      max-width: 700px;
+      margin-top: 5rem;
+      margin-bottom: 3rem;
+      padding: 2.5rem;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+    }
+    
+    .container:hover {
+      transform: translateY(-2px);
+    }
+    
+    .app-title {
+      color: var(--dark);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+    
+    .app-icon {
+      font-size: 1.8rem;
+    }
+    
+    .form-label {
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 0.75rem;
+    }
+    
+    .form-control {
+      border: 2px solid #e9ecef;
+      border-radius: 10px;
+      padding: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.2);
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      border: none;
+      padding: 0.75rem;
+      font-weight: 600;
+      border-radius: 10px;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background-color: #3a56d4;
+      transform: translateY(-2px);
+    }
+    
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+    
+    .result-card {
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.25rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      opacity: 0;
+      animation: fadeIn 0.5s forwards;
+    }
+    
+    .spam-result {
+      background-color: var(--danger-light);
+      color: var(--danger);
+      border-left: 5px solid var(--danger);
+    }
+    
+    .ham-result {
+      background-color: var(--success-light);
+      color: var(--success);
+      border-left: 5px solid var(--success);
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 2rem;
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .container {
+        margin-top: 2rem;
+        padding: 1.5rem;
+      }
+      
+      .app-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container animate__animated animate__fadeIn">
+    <h1 class="app-title">
+      <span class="app-icon">📧</span>
+      Email Spam Classifier
+    </h1>
+    
+    <p class="text-center text-muted mb-4">
+      Paste your email content below to check if it's spam or legitimate
+    </p>
+    
+    <form method="POST" action="/">
+      <div class="mb-4">
+        <label for="email" class="form-label">Email Content</label>
+        <textarea 
+          class="form-control" 
+          id="email" 
+          name="email" 
+          rows="6" 
+          placeholder="Paste the email content here..."
+          required
+        >{{ email or '' }}</textarea>
+      </div>
+      
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary btn-lg">
+          <span class="me-2">🔍</span> Analyze Email
+        </button>
+      </div>
+    </form>
+
+    {% if prediction %}
+      <div class="result-card {{ 'spam-result' if prediction == 'Spam' else 'ham-result' }}">
+        This email is classified as: <strong>{{ prediction }}</strong>
+        {% if prediction == 'Spam' %}
+          <div class="mt-2">⚠️ Be cautious with this message</div>
+        {% else %}
+          <div class="mt-2">✅ This email appears to be safe</div>
+        {% endif %}
+      </div>
+    {% endif %}
+    
+    <div class="footer">
+      Machine Learning Project | Group 04
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
